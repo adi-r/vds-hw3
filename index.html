@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <title>Three.js Particle System</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+        <script src="./lib/js/three.js"></script>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="./src/css/style.css">
+</head>
+
+<body>
+        <center>
+                <div>
+                        <h1>Particle System</h1>
+                </div>
+        </center>
+        
+        <div class="container">
+                <div class="row">
+                        <div class="col-9">
+                                <canvas class="scene"></canvas>
+                        </div>
+                        <div class="col-3">
+                                <div id="planeView">
+                                        <svg id="rectView" width="400" height="400"></svg> 
+                                </div>
+                                <div class='my-legend'>
+                                        <div class='legend-title'><p>Concentration Values<p></div>
+                                        <div class='legend-scale'>
+                                                <ul class='legend-labels'>
+                                                <li><span style='background:#000004;'></span>0%</li>
+                                                <li><span style='background:#420a68;'></span>20%</li>
+                                                <li><span style='background:#932667;'></span>40%</li>
+                                                <li><span style='background:#dd513a;'></span>60%</li>
+                                                <li><span style='background:#fca50a;'></span>80%</li>
+                                                <li><span style='background:#fcffa4;'></span>100%</li>
+                                                </ul>
+                                        </div>
+                                </div>
+                                <br/>
+                                <p>Plane Controls</p>
+                                <span style="font-weight:bold;color:black">Plane Z: </span>
+                                <span id="zValue" style="font-weight:bold;color:black">0</span>
+                                <div class="slidecontainer">
+                                        <input type="range" min="-5" max="5" value="0" class="slider" id="slideBar" step="0.05" oninput="planeSlider()">
+                                </div>
+                                <br/>
+                                <p>Point Cloud Rotation Controls</p>
+                                <div class="slidecontainer">
+                                        <strong>X:</strong>  <input type="range" min="-180" max="180" value="0" class="slider" id="xBar" step="20" oninput="xSlider()">
+                                </div>
+                                <div class="slidecontainer">
+                                        <strong>Y:</strong>   <input type="range" min="-180" max="180" value="0" class="slider" id="yBar" step="20" oninput="ySlider()">
+                                </div>
+                                <div class="slidecontainer">
+                                        <strong>Z:</strong>   <input type="range" min="-180" max="180" value="0" class="slider" id="zBar" step="20" oninput="zSlider()">
+                                </div>
+                                <button id="reset" class="btn btn-success" onclick="reset()">Reset</button>
+                        </div>
+                </div>
+        </div>
+
+        <h3><strong>Instructions</strong></h3>
+        <button class="collapsible">Steps to interact</button>
+        <div class="content">
+                <ul>
+                        <li>
+                                <p>
+                                        Users can move the camera by dragging the cursor across the scene. Users can also zoom into the point cloud by scroll up and down.
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        Users can move the plane across the z-axis by dragging the slider. Users can rotate the point cloud using the rotation sliders given as well.
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        The reset button resets the entire configuration back to it's default state. 
+                                </p>
+                        </li>
+
+                </ul>
+        </div>
+
+        <br/>
+        <!-- <br/> -->
+        <h3><strong>Credits</strong></h3>
+        <button class="collapsible">Sources and References I've used to build the Viz</button>
+        <div class="content">
+                <ul>
+                        <li>
+                                <p> 
+                                        D3.js: <a href="https://github.com/d3/d3" style="color: blue;">Source Code</a>,  
+                                        <a href="https://github.com/d3/d3/blob/main/LICENSE" style="color: blue;">License</a>
+                                </p>
+                        </li>
+                        <li>
+                                <p> 
+                                        Three.js: <a href="https://threejs.org/docs/#manual/en/introduction/Creating-a-scene" style="color: blue;">Docs/a>
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        CSS: <a href="https://www.w3schools.com/w3css/w3css_downloads.asp" style="color: blue;">w3schools</a>
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        Collapsible Section: <a href="https://www.w3schools.com/howto/howto_js_collapsible.asp" style="color: blue;">w3schools</a>
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        Legend: <a href="https://tilemill-project.github.io/tilemill/docs/guides/advanced-legends/" style="color: blue;">advanced-legends</a>
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        Point Cloud: <a href="https://medium.datadriveninvestor.com/getting-started-with-d3-js-maps-e721ba6d8560" style="color: blue;">Medium</a>
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        Plane: <a href="https://stackoverflow.com/questions/29916886/three-js-add-plane-to-the-scene" style="color: blue;">StackOverflow</a>
+                                </p>
+                        </li>
+                        <li>
+                                <p>
+                                        Other Sources: <a href="https://www.w3schools.com/howto/howto_js_rangeslider.asp" style="color: blue;">Range Slider</a>, 
+                                        <a href="https://colorbrewer2.org/#type=sequential&scheme=RdPu&n=5" style="color: blue;">Color Brewer</a>, 
+                                        <a href="https://threejs.org/docs/#examples/en/controls/OrbitControls" style="color: blue;">Orbit Controls</a>,
+                                        <a href="https://stackoverflow.com/questions/27022160/three-js-can-i-apply-position-rotation-and-scale-to-the-geometry/27023024#27023024" style="color: blue;"> Reset Rotation</a>,
+                                        <a href="https://threejs.org/docs/#api/en/core/BufferGeometry.rotateX" style="color: blue;">Rotation</a>
+                                        <a href="https://threejs.org/docs/#api/en/materials/PointsMaterial" style="color: blue;">Points Material</a>
+                                        <a href="https://threejs.org/docs/#api/en/core/BufferGeometry" style="color: blue;">Buffer Geometry</a>
+                                        <a href="http://using-d3js.com/04_05_sequential_scales.html" style="color: blue;">Color Scale</a>
+                                        <a href="https://reactgo.com/d3js-remove-svg/" style="color: blue;">Remove SVG</a>
+                                        <a href="https://threejs.org/docs/#api/en/core/BufferGeometry.rotateX" style="color: blue;">Points Material</a>
+                                </p>
+                        </li>
+                </ul>
+        </div>
+        
+        <script src="./src/js/misc.js"></script>
+        <script src="./src/js/OrbitControls.js"></script>
+        <script src="./src/js/scene.js"></script>
+        <script src="./src/js/particleSystem.js"></script>
+</body>
+
+</html>
